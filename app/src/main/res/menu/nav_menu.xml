@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item android:id="@+id/mHome"
+            android:title="HOME"
+            />
+
+        <item android:id="@+id/mAbout"
+            android:title="sdfgh"
+            />
+
+        <item android:id="@+id/mAboutInstructor"
+            android:title="sekhj"
+            android:visible="false"
+            />
+
+        <item android:id="@+id/mHistory"
+            android:title="fygkgk"
+            android:visible="false"
+            />
+
+        <item android:id="@+id/mCourses"
+            android:title="hjgyujg"
+            />
+
+        <item android:id="@+id/mOnlineTest"
+            android:title="fctyvy"
+            android:visible="false"
+            />
+
+        <item android:id="@+id/mClasroom"
+            android:title="gygtyuy"
+            android:visible="false"
+            />
+
+        <item android:id="@+id/mSyllabus"
+            android:title="ttvyuj"
+            />
+
+        <item android:id="@+id/mCsir"
+            android:title="tfuyyb"
+            android:visible="false"
+            />
+
+        <item android:id="@+id/mAdmin2"
+            android:title="vuygtyu"
+            />
+
+    </group>
+
+</menu>

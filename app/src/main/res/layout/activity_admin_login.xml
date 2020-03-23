@@ -30,10 +30,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
                         android:layout_gravity="center_horizontal"
-                        android:text="Login"
+                        android:text="@string/login"
                         android:textColor="#000000"
                         android:textSize="24sp" />
-
 
                 <EditText
                     android:layout_width="match_parent"
@@ -44,7 +43,7 @@
                     android:layout_marginTop="15dp"
                     android:padding="5dp"
                     android:layout_marginBottom="15dp"
-                    android:hint="Username"/>
+                    android:hint="@string/username"/>
 
 
                 <EditText
@@ -55,16 +54,16 @@
                     android:background="@drawable/default_edittext_border"
                     android:padding="5dp"
                     android:layout_marginBottom="15dp"
-                    android:hint="Password"/>
+                    android:hint="@string/password"/>
 
                 <Button
                     android:id="@+id/enter_admin"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginBottom="25dp"
                     android:background="#3b5998"
-                    android:text="Sign in"
+                    android:text="@string/sign_in"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
