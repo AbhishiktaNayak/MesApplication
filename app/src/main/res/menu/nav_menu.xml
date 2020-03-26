@@ -6,45 +6,32 @@
             android:title="HOME"
             />
 
-        <item android:id="@+id/mAbout"
-            android:title="sdfgh"
+        <item android:id="@+id/mChooseMess"
+            android:title="CHOOSE MESS"
             />
 
-        <item android:id="@+id/mAboutInstructor"
-            android:title="sekhj"
-            android:visible="false"
+        <item android:id="@+id/mMenu"
+            android:title="MENU"
             />
 
-        <item android:id="@+id/mHistory"
-            android:title="fygkgk"
-            android:visible="false"
+        <item android:id="@+id/mNotify"
+            android:title="NOTIFY"
             />
 
-        <item android:id="@+id/mCourses"
-            android:title="hjgyujg"
+        <item android:id="@+id/mFeedback"
+            android:title="FEEDBACK"
             />
 
-        <item android:id="@+id/mOnlineTest"
-            android:title="fctyvy"
-            android:visible="false"
+        <item android:id="@+id/mLogout"
+            android:title="LOGOUT"
             />
 
-        <item android:id="@+id/mClasroom"
-            android:title="gygtyuy"
-            android:visible="false"
+        <item android:id="@+id/mDeleteAccount"
+            android:title="DELETE YOUR ACCOUNT"
             />
 
-        <item android:id="@+id/mSyllabus"
-            android:title="ttvyuj"
-            />
-
-        <item android:id="@+id/mCsir"
-            android:title="tfuyyb"
-            android:visible="false"
-            />
-
-        <item android:id="@+id/mAdmin2"
-            android:title="vuygtyu"
+        <item android:id="@+id/mAdmin"
+            android:title="ADMIN"
             />
 
     </group>

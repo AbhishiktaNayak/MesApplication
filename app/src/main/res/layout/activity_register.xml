@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".Register">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white"
+            android:layout_margin="20dp"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/sName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/default_edittext_border"
+                    android:hint="Enter Name"
+                    android:padding="5dp" />
+
+
+                <EditText
+                    android:id="@+id/sRoll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/default_edittext_border"
+                    android:hint="Enter Roll"
+                    android:padding="5dp" />
+
+                <EditText
+                    android:id="@+id/sEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/default_edittext_border"
+                    android:hint="Enter Email id"
+                    android:padding="5dp" />
+
+                <EditText
+                    android:id="@+id/sPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/default_edittext_border"
+                    android:hint="Enter Password"
+                    android:padding="5dp" />
+
+                <EditText
+                    android:id="@+id/sConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/default_edittext_border"
+                    android:hint="Confirm password"
+                    android:padding="5dp" />
+
+                <Button
+                    android:id="@+id/btRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="25dp"
+                    android:background="@color/blue_button"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Register"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+</LinearLayout>

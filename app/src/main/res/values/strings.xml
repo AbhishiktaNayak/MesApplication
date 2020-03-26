@@ -1,7 +1,15 @@
 <resources>
     <string name="app_name">Mess Management</string>
     <string name="login">Login</string>
-    <string name="password">Password</string>
     <string name="sign_in">Sign in</string>
-    <string name="username">Username</string>
+    <string name="welcome">WELCOME!</string>
+    <string name="new_user_sign_in">New user? Sign in.</string>
+
+    <string name="home_second">Home Second</string>
+    <string name="forgot_pw_msg">Enter your registered email. A link will be sent to you from where you can update your password.</string>
+    <string name="enter_email">Enter email</string>
+    <string name="send_email">Send Email</string>
+    <string name="enter_password">Enter password</string>
+    <string name="forgot_password">Forgot Password?</string>
+
 </resources>
