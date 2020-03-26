@@ -23,18 +23,24 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Home extends AppCompatActivity {
 
     private Toolbar toolbar;
     private View nav_header;
     private NavigationView navigationView;
-    private TextView tvEmail;
+    private TextView tvEmail,tvRollNo;
     private ImageView menu_icon;
     private ProgressBar progressBar;
     private DrawerLayout drawerLayout;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+    private DatabaseReference rootRef,ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,9 @@ public class Home extends AppCompatActivity {
 
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser=firebaseAuth.getCurrentUser();
+        rootRef=FirebaseDatabase.getInstance().getReference();
+        ref=rootRef.child("Students").child(firebaseUser.getUid());
+
 
         navigationView=findViewById(R.id.navigation);
         progressBar=findViewById(R.id.progressBar);
@@ -52,8 +61,10 @@ public class Home extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         nav_header=navigationView.getHeaderView(0);
+        tvRollNo=nav_header.findViewById(R.id.tvRollNo);
         tvEmail=nav_header.findViewById(R.id.tvEmail);
         tvEmail.setText(firebaseUser.getEmail());
+
 
         drawerLayout = findViewById(R.id.drawer_layout);
         configurenavigation();
@@ -158,6 +169,20 @@ public class Home extends AppCompatActivity {
                     alertDialog.show();
                 }
                 return false;
+            }
+        });
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String roll=dataSnapshot.child("sroll").getValue(String.class).toString();
+                tvRollNo.setText(roll);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Home.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
