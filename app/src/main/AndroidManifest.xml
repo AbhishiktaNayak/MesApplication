@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AdminHome"></activity>
+        android:theme="@style/AppTheme">
+        <activity android:name=".ChooseMenu"></activity>
         <activity android:name=".Empty" />
         <activity android:name=".Register" />
         <activity android:name=".Home" />
