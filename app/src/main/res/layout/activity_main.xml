@@ -45,7 +45,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/default_edittext_border"
+                android:background="@drawable/edittext_highlight_blue"
                 android:hint="@string/enter_email"
                 android:padding="5dp"
                 android:inputType="textEmailAddress" />
@@ -57,13 +57,13 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/default_edittext_border"
+                android:background="@drawable/edittext_highlight_blue"
                 android:hint="@string/enter_password"
                 android:inputType="textPassword"
                 android:padding="5dp" />
 
             <Button
-                android:id="@+id/btLogin"
+                android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"

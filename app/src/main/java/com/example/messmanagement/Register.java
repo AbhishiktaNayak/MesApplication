@@ -34,15 +34,15 @@ public class Register extends AppCompatActivity{
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
 
-      @Override
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Student");
         mAuth=FirebaseAuth.getInstance();
 
-          Button btRegister = findViewById(R.id.btRegister);
+        Button btRegister = findViewById(R.id.btRegister);
         sroll=findViewById(R.id.sRoll);
         sname=findViewById(R.id.sName);
         semail=findViewById(R.id.sEmail);
@@ -72,7 +72,28 @@ public class Register extends AppCompatActivity{
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        startActivity(new Intent(Register.this,Home.class));
+
+                                        Student student=new Student(
+                                                name,
+                                                roll,
+                                                email
+                                        );
+                                        FirebaseDatabase.getInstance().getReference("Students")
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                .setValue(student).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                       if(task.isSuccessful())
+                                                       {
+                                                           Toast.makeText(Register.this, "Successfully registered!", Toast.LENGTH_SHORT).show();
+                                                           startActivity(new Intent(Register.this,Home.class));
+                                                       }
+                                                       else{
+                                                           Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                       }
+                                                    }
+                                                });
+
                                     } else {
                                         Toast.makeText(Register.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                                     }
@@ -80,7 +101,7 @@ public class Register extends AppCompatActivity{
                             });
 
                 } else {
-                    Toast.makeText(Register.this, "confirm password doesnt match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Confirm password doesn't match", Toast.LENGTH_SHORT).show();
                 }
             }
         });

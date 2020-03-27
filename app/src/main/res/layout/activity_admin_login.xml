@@ -41,26 +41,26 @@
                     android:textSize="24sp" />
 
                 <EditText
-                    android:id="@+id/etEmail"
+                    android:id="@+id/aEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/default_edittext_border"
+                    android:background="@drawable/edittext_highlight_blue"
                     android:hint="Enter email"
                     android:padding="5dp" />
 
 
                 <EditText
-                    android:id="@+id/etPassword"
+                    android:id="@+id/aPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/default_edittext_border"
+                    android:background="@drawable/edittext_highlight_blue"
                     android:hint="Enter password"
                     android:padding="5dp" />
 
