@@ -34,7 +34,7 @@ public class AdminLogin extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         firebaseUser=mAuth.getCurrentUser();
 
-        btnLogin=findViewById(R.id.btnLogin);
+        btnLogin=findViewById(R.id.btLogin);
         aEmail=findViewById(R.id.aEmail);
         aPassword=findViewById(R.id.aPassword);
 
