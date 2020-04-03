@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mess Management</string>
+    <string name="app_name">KIIT MESS APP</string>
     <string name="login">Login</string>
     <string name="sign_in">Sign in</string>
     <string name="welcome">WELCOME!</string>
@@ -11,5 +11,8 @@
     <string name="send_email">Send Email</string>
     <string name="enter_password">Enter password</string>
     <string name="forgot_password">Forgot Password?</string>
+
+    <string name="enter_icon">&#xf0a9;</string>
+    <string name="plus_circle_icon">&#xf055;</string>
 
 </resources>

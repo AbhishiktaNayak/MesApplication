@@ -118,7 +118,7 @@ public class Home extends AppCompatActivity {
                     drawerLayout.closeDrawers();
                 }
                 else if (item == (R.id.mFeedback)) {
-                    startActivity(new Intent(Home.this, Empty.class));
+                    startActivity(new Intent(Home.this, Feedback.class));
                     drawerLayout.closeDrawers();
                 }
                 else if (item == (R.id.mLogout)) {
@@ -130,7 +130,7 @@ public class Home extends AppCompatActivity {
                     finishAffinity();
                 }
                 else if (item == (R.id.mAdmin)) {
-                    startActivity(new Intent(Home.this, AdminLogin.class));
+                    startActivity(new Intent(Home.this, AdminHome.class));
                     drawerLayout.closeDrawers();
                 }
                 else if (item==(R.id.mDeleteAccount))
@@ -188,7 +188,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void popupwindow() {
-        startActivity(new Intent(Home.this,Empty.class));
-        drawerLayout.closeDrawers();
+       // startActivity(new Intent(Home.this,Empty.class));
+       // drawerLayout.closeDrawers();
     }
 }
