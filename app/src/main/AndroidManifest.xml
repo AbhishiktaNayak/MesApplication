@@ -9,7 +9,9 @@
         android:roundIcon="@drawable/dark_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Menu"></activity>
+        <activity android:name=".AdminUser"></activity>
+        <activity android:name=".ManageFeedback" />
+        <activity android:name=".Feedback" />
         <activity android:name=".AdminHome" />
         <activity android:name=".ChooseMenu" />
         <activity android:name=".Empty" />

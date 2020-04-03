@@ -5,7 +5,13 @@
     <color name="colorAccent">#8BC34A</color>
     <color name="colorPrimaryLight">#B2DFDB</color>
     <color name="colorGrey">#BDBDBD</color>
+    <color name="light_gray">#E0E0E0</color>
+    <color name="lighter_gray">#F5F5F5</color>
+    <color name="transparent_black">#AA000000</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="blue_button">#3b5998</color>
+    <color name="cardBackgroud_color">#fafafa</color>
+    <color name="edittext_blue">#90CAF9</color>
+    <color name="edittext_red">#D32F2F</color>
 </resources>
