@@ -20,13 +20,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class AdminUser extends AppCompatActivity {
 
     private EditText etFullname,etUser,etPw,etConfirmpw,etUser2,etPw2,etConfirmpw2;
-    private Button btAdd,btDelete;
     private AdminAccount account;
+
     private DatabaseReference mDatabase,mD;
     private Drawable editTextBlue,editTextRed;
     private String name,username,password,confirmpw,username2,password2,confirmpw2;
@@ -36,7 +37,8 @@ public class AdminUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_user);
 
-        mDatabase= FirebaseDatabase.getInstance().getReference("AdminUsers");
+        mD=FirebaseDatabase.getInstance().getReference();
+        mDatabase= FirebaseDatabase.getInstance().getReference().child("AdminUsers");
 
         etFullname=findViewById(R.id.name_edit_text);
         etUser=findViewById(R.id.username_edit_text);
@@ -45,8 +47,8 @@ public class AdminUser extends AppCompatActivity {
         etUser2=findViewById(R.id.username_edit_text2);
         etPw2=findViewById(R.id.password_edit_text2);
         etConfirmpw2=findViewById(R.id.confirmpw_edit_text2);
-        btAdd=findViewById(R.id.addUserbtn);
-        btDelete=findViewById(R.id.btnDelete);
+        Button btAdd = findViewById(R.id.addUserbtn);
+        Button btDelete = findViewById(R.id.btnDelete);
 
         editTextBlue = ContextCompat.getDrawable(this, R.drawable.edittext_highlight_blue);
         editTextRed = ContextCompat.getDrawable(this, R.drawable.edittext_highlight_red);
@@ -61,16 +63,10 @@ public class AdminUser extends AppCompatActivity {
         btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteAccount();
+                checkAccountForDelete();
             }
         });
 
-    }
-
-    private void deleteAccount() {
-        if(validateDelete()){
-            Toast.makeText(this, "Deleted.", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void checkAccount() {
@@ -93,34 +89,6 @@ public class AdminUser extends AppCompatActivity {
         }
     }
 
-    private void addAccount() {
-        if(validateAdd()) {
-            String id = mDatabase.push().getKey();
-            account = new AdminAccount(
-                    id,
-                    name,
-                    username
-            );
-            account.setPassword(password);
-
-            if(id != null) {
-                mDatabase.child(id).setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(AdminUser.this, "Added", Toast.LENGTH_SHORT).show();
-                            Log.d("TAG", "New account added" + account);
-                        } else {
-                            Log.d("TAG", "Error: " + task.getException());
-                        }
-                    }
-                });
-            }
-        } else {
-            Log.d("TAG", "Invalid");
-        }
-    }
-
     private boolean checkIfUsernameExists(String username,DataSnapshot dataSnapshot){
         Log.d("TAG","checkIfUsernameExists: checking if "+username+" already exists!");
 
@@ -136,26 +104,98 @@ public class AdminUser extends AppCompatActivity {
         return false;
     }
 
-   /* private boolean checkIfUsernameExistsDelete(String username,String password,DataSnapshot dataSnapshot){
-        Log.d("TAG","checkIfUsernameExists: checking if "+username+" already exists!");
+    private void addAccount() {
+        if(validateAdd()) {
+            String id = mDatabase.push().getKey();
+            account = new AdminAccount(
+                    id,
+                    name,
+                    username
+            );
+            account.setPassword(password);
+            String id2 = account.getId();
+            Log.d("TAG","acc id " + id2);
+
+            if(id != null) {
+                mDatabase.child(id).setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(AdminUser.this, "Added", Toast.LENGTH_SHORT).show();
+                            Log.d("TAG", "New account added" + account);
+                            clearedittext();
+                        } else {
+                            Log.d("TAG", "Error: " + task.getException());
+                        }
+                    }
+                });
+            }
+        } else {
+            Log.d("TAG", "Invalid");
+        }
+    }
+
+    private void checkAccountForDelete() {
+        if(validateDelete()) {
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(checkIfUsernameExistsDelete(username2,password2,dataSnapshot)){
+                        deleteAccount();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(AdminUser.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void deleteAccount() {
+        Query query=mD.child("AdminUsers").orderByChild("username").equalTo(username2);
+        Log.d("TAG","query successful");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    snapshot.getRef().removeValue();
+                    Toast.makeText(AdminUser.this, "User Deleted!", Toast.LENGTH_SHORT).show();
+                    clearedittext();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("TAG","onCancelled",databaseError.toException());
+            }
+        });
+
+    }
+
+    private boolean checkIfUsernameExistsDelete(String username2,String password2,DataSnapshot dataSnapshot){
+        Log.d("TAG","checkIfUsernameExists: checking if "+username2+" already exists!");
 
         account =new AdminAccount();
+
         for(DataSnapshot ds:dataSnapshot.getChildren()){
             account.setUsername(ds.getValue(AdminAccount.class).getUsername());
             account.setPassword(ds.getValue(AdminAccount.class).getPassword());
 
-            if(account.getUsername().equals(username) && account.getPassword().equals(password)){
-                Log.d("TAG","checkIfUsernameExists: FOUND A MATCH "+account.getUsername());
+            if(account.getUsername().equals(username2) && account.getPassword().equals(password2)){
+                Log.d("TAG","checkIfUsernameExists: FOUND A MATCH "+account.getUsername()+" "+account.getPassword());
                 return true;
             }
-            else{
-                Toast.makeText(this, "No such user exists!", Toast.LENGTH_SHORT).show();
+            else if(account.getUsername().equals(username2) && !account.getPassword().equals(password2)){
+                Toast.makeText(this, "Incorrect password", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
+        Toast.makeText(this, "Incorrect username", Toast.LENGTH_SHORT).show();
         return false;
     }
-*/
+
     private boolean validateAdd() {
         setEditTextBackground(editTextBlue);
         name = etFullname.getText().toString();
@@ -232,5 +272,15 @@ public class AdminUser extends AppCompatActivity {
 
     private void setEditTextBackground(Drawable drawable, EditText editText) {
         editText.setBackground(drawable);
+    }
+
+    private void clearedittext() {
+        etUser.getText().clear();
+        etPw.getText().clear();
+        etConfirmpw.getText().clear();
+        etFullname.getText().clear();
+        etUser2.getText().clear();
+        etPw2.getText().clear();
+        etConfirmpw2.getText().clear();
     }
 }
