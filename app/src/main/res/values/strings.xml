@@ -14,5 +14,9 @@
 
     <string name="enter_icon">&#xf0a9;</string>
     <string name="plus_circle_icon">&#xf055;</string>
+    <string name="dinner">DINNER</string>
+    <string name="snacks">SNACKS</string>
+    <string name="lunch">LUNCH</string>
+    <string name="breakfast">BREAKFAST</string>
 
 </resources>

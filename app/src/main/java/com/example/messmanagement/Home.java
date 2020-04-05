@@ -54,7 +54,7 @@ public class Home extends AppCompatActivity {
 
 
         navigationView=findViewById(R.id.navigation);
-        progressBar=findViewById(R.id.progressBar);
+//        progressBar=findViewById(R.id.progressBar);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
