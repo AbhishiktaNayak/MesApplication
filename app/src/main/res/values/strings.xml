@@ -18,5 +18,15 @@
     <string name="snacks">SNACKS</string>
     <string name="lunch">LUNCH</string>
     <string name="breakfast">BREAKFAST</string>
+    <string name="choose_your_hostel">CHOOSE YOUR HOSTEL\t\t\t</string>
+    <string name="no_hostel_selected">No hostel selected</string>
+
+    <string-array name="hostel_list">
+        <item>Select hostel</item>
+        <item>QC-1</item>
+        <item>QC-2</item>
+        <item>QC-3</item>
+        <item>QC-4</item>
+    </string-array>
 
 </resources>

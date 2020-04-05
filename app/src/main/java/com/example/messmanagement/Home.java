@@ -7,14 +7,26 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,14 +45,16 @@ public class Home extends AppCompatActivity {
 
     private Toolbar toolbar;
     private View nav_header;
+    private LinearLayout layout1,layout2;
     private NavigationView navigationView;
-    private TextView tvEmail,tvRollNo;
+    private TextView tvEmail,tvRollNo,tvHostel,clickHere;
     private ImageView menu_icon;
     private ProgressBar progressBar;
     private DrawerLayout drawerLayout;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference rootRef,ref;
+    private String selectedHostel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +68,6 @@ public class Home extends AppCompatActivity {
 
 
         navigationView=findViewById(R.id.navigation);
-//        progressBar=findViewById(R.id.progressBar);
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -63,6 +75,7 @@ public class Home extends AppCompatActivity {
         nav_header=navigationView.getHeaderView(0);
         tvRollNo=nav_header.findViewById(R.id.tvRollNo);
         tvEmail=nav_header.findViewById(R.id.tvEmail);
+        tvHostel=nav_header.findViewById(R.id.tvHostel);
         tvEmail.setText(firebaseUser.getEmail());
 
 
@@ -99,7 +112,7 @@ public class Home extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                Menu menu = navigationView.getMenu();
+                //Menu menu = navigationView.getMenu();
                 int item = menuItem.getItemId();
 
                 if (item == (R.id.mHome)) {
@@ -177,7 +190,9 @@ public class Home extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 String roll=dataSnapshot.child("sroll").getValue(String.class).toString();
+                String hostel=dataSnapshot.child("shostel").getValue(String.class);
                 tvRollNo.setText(roll);
+                tvHostel.setText(hostel);
             }
 
             @Override
@@ -188,7 +203,82 @@ public class Home extends AppCompatActivity {
     }
 
     private void popupwindow() {
-       // startActivity(new Intent(Home.this,Empty.class));
-       // drawerLayout.closeDrawers();
+        LayoutInflater inflater = (LayoutInflater) Home.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.activity_choose_hostel, null);
+        final PopupWindow window = new PopupWindow(layout,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                true);
+
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        window.setOutsideTouchable(true);
+        window.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+        View container = window.getContentView().getRootView();
+        if (container != null) {
+            WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+            WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+            p.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+            p.dimAmount = 0.8f;
+            if (wm != null) {
+                wm.updateViewLayout(container, p);
+            }
+        }
+        setSpinner(layout);
+
+        Button btCancel = layout.findViewById(R.id.btCancel);
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+            }
+        });
+
+        TextView tvClose = layout.findViewById(R.id.tvClose);
+        tvClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+            }
+        });
+
+        drawerLayout.closeDrawers();
     }
+
+    private void setSpinner(View layout) {
+        final Spinner hostelSpinner=layout.findViewById(R.id.hostelSpinner);
+
+        ArrayAdapter<String> adapter=new ArrayAdapter<>(Home.this, R.layout.support_simple_spinner_dropdown_item,
+                getResources().getStringArray(R.array.hostel_list));
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+        hostelSpinner.setAdapter(adapter);
+
+        hostelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedHostel = hostelSpinner.getItemAtPosition(position).toString();
+                Toast.makeText(Home.this, "Selected Hostel at: "+selectedHostel, Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        Button btSubmit=layout.findViewById(R.id.btSubmit);
+        btSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectedHostel.equals("Select hostel")){
+                    Toast.makeText(Home.this, "Please select hostel", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    ref.child("shostel").setValue(selectedHostel);
+                    Toast.makeText(Home.this, "Submitted!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
+
+
 }

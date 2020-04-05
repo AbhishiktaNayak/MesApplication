@@ -14,7 +14,7 @@
         <activity android:name=".ManageFeedback" />
         <activity android:name=".Feedback" />
         <activity android:name=".AdminHome" />
-        <activity android:name=".ChooseMenu" />
+        <activity android:name=".ChooseHostel" />
         <activity android:name=".Empty" />
         <activity android:name=".Register" />
         <activity android:name=".Home" />

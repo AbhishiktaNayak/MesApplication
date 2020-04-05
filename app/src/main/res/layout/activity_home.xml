@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include
@@ -31,34 +31,50 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="20dp"
                     android:fontFamily="@font/open_sans"
                     android:text="WHAT WE GOT \nTODAY\nFOR YOU!"
                     android:textAlignment="center"
                     android:textSize="30sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
                     android:textStyle="bold|italic" />
 
+                <TextView
+                    android:id="@+id/clickHere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Click here to select your hostel"
+                    android:textSize="24sp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:shadowColor="@color/lighter_gray"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_margin="20dp"
+                    android:visibility="gone"
+                    android:textStyle="bold"/>
+
                 <LinearLayout
+                    android:id="@+id/layout1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
-                    android:layout_weight="1"
+                    android:visibility="visible"
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="20dp"
                         android:layout_weight="1"
-                        android:background="@color/white"
-                        android:padding="10dp"
-                        tools:ignore="NestedWeights">
+                        android:background="@color/light_gray"
+                        android:padding="10dp">
 
                         <LinearLayout
-                            android:id="@+id/layout1"
+                            android:id="@+id/breakfast_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
+                            android:background="@color/white"
                             android:visibility="visible">
 
                             <TextView
@@ -77,13 +93,12 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="20dp"
                         android:layout_weight="1"
                         android:background="@color/white"
                         android:padding="10dp">
 
                         <LinearLayout
-                            android:id="@+id/layout2"
+                            android:id="@+id/lunch_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -102,23 +117,23 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/layout2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:visibility="visible"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
-
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="20dp"
                     android:layout_weight="1"
                     android:background="@color/white"
                     android:padding="10dp">
 
                     <LinearLayout
-                        android:id="@+id/layout3"
+                        android:id="@+id/snacks_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
@@ -140,9 +155,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="20dp"
                     android:layout_weight="1"
-                    android:background="@color/white"
                     android:padding="10dp">
 
                     <LinearLayout
@@ -150,10 +163,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
+                        android:background="@color/white"
                         android:visibility="visible">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_margin="20dp"
@@ -164,7 +178,7 @@
                             android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-        </LinearLayout>
+            </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
