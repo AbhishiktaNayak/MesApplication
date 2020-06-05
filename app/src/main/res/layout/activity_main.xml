@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context=".MainActivity">
+    tools:context=".Login">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

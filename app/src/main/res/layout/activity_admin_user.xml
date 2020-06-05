@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -28,11 +29,12 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:visibility="visible"
+                app:cardElevation="5dp"
+                app:cardMaxElevation="10dp"
                 app:cardCornerRadius="5dp"
                 app:cardPreventCornerOverlap="false">
 
                 <LinearLayout
-                    android:id="@+id/linear_layout_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -42,19 +44,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorPrimaryDark"
-                        android:gravity="center_vertical"
                         android:clickable="true"
+                        android:focusable="true"
                         android:orientation="horizontal"
                         android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
                         android:paddingTop="12dp"
-                        android:paddingBottom="12dp"
-                        android:focusable="true">
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="12dp">
                         <ImageView
                             android:id="@+id/ic_home"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_home"
+                            android:layout_centerVertical="true"
+                            app:srcCompat="@drawable/ic_home"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -68,12 +70,20 @@
                             android:textColor="@color/white"
                             android:textSize="16sp" />
                         <ImageView
+                            android:id="@+id/dropdown"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_expand_more"
+                            app:srcCompat="@drawable/ic_expand_more"
                             android:textColor="@color/white"
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linear_layout_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        android:orientation="vertical">
 
                     <RelativeLayout
                         android:id="@+id/relative_add_user"
@@ -81,20 +91,20 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/gray_bottom"
                         android:clickable="true"
-                        android:gravity="center_vertical"
+                        android:focusable="true"
                         android:orientation="horizontal"
                         android:paddingStart="10dp"
                         android:paddingTop="10dp"
                         android:paddingEnd="10dp"
-                        android:visibility="gone"
-                        android:paddingBottom="10dp"
-                        android:focusable="true">
+                        android:paddingBottom="10dp">
+
                         <TextView
-                            android:id="@+id/addUser"
+                            android:id="@+id/ivUser"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:tag="icon"
-                            android:text="@string/enter_icon"
+                            android:text="@string/admin"
                             android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
 
@@ -102,7 +112,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_toEndOf="@id/addUser"
+                            android:layout_toEndOf="@id/ivUser"
                             android:fontFamily="@font/montserrat"
                             android:text="Add Admin User"
                             android:textColor="@color/colorPrimary"
@@ -123,20 +133,19 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/gray_bottom"
                         android:clickable="true"
-                        android:gravity="center_vertical"
+                        android:focusable="true"
                         android:orientation="horizontal"
                         android:paddingStart="10dp"
                         android:paddingTop="10dp"
                         android:paddingEnd="10dp"
-                        android:paddingBottom="10dp"
-                        android:visibility="gone"
-                        android:focusable="true">
+                        android:paddingBottom="10dp">
                         <TextView
-                            android:id="@+id/ivStudent"
+                            android:id="@+id/ivFeedback"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:tag="icon"
-                            android:text="@string/enter_icon"
+                            android:text="@string/feedback"
                             android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
 
@@ -144,7 +153,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_toEndOf="@id/ivStudent"
+                            android:layout_toEndOf="@id/ivFeedback"
                             android:fontFamily="@font/montserrat"
                             android:text="Manage Feedback"
                             android:textColor="@color/colorPrimary"
@@ -160,59 +169,101 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/search"
+                        android:id="@+id/relative_menu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorPrimaryDark"
+                        android:background="@drawable/gray_bottom"
                         android:clickable="true"
-                        android:gravity="center_vertical"
+                        android:focusable="true"
                         android:orientation="horizontal"
                         android:paddingStart="10dp"
-                        android:paddingTop="12dp"
+                        android:paddingTop="10dp"
                         android:paddingEnd="10dp"
-                        android:paddingBottom="12dp"
-                        android:visibility="gone"
-                        android:focusable="true">
+                        android:paddingBottom="10dp">
                         <TextView
-                            android:id="@+id/ic_search"
+                            android:id="@+id/ivMenu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:tag="icon"
-                            android:text="@string/enter_icon"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"/>
+                            android:text="@string/menu"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_toEndOf="@id/ic_search"
+                            android:layout_toEndOf="@id/ivMenu"
                             android:fontFamily="@font/montserrat"
-                            android:text="Advanced Search"
+                            android:text="Manage Menus"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:tag="icon"
+                            android:text="@string/enter_icon"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relative_logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryDark"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="12dp">
+                        <TextView
+                            android:id="@+id/ivLogout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:tag="icon"
+                            android:text="@string/logouticon"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_toEndOf="@id/ivLogout"
+                            android:fontFamily="@font/montserrat"
+                            android:text="Logout"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_forward"
-                            android:textColor="@color/white"
                             android:layout_alignParentEnd="true"
-                            tools:ignore="ContentDescription" />
+                            app:srcCompat="@drawable/ic_arrow_forward"
+                            android:textColor="@color/white" />
                     </RelativeLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 app:cardBackgroundColor="@color/lighter_gray"
-                app:contentPadding="5dp"
                 app:cardElevation="5dp"
                 app:cardMaxElevation="10dp"
-                app:cardPreventCornerOverlap="false">
+                app:cardPreventCornerOverlap="false"
+                app:contentPadding="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -231,7 +282,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_add_circle" />
+                            app:srcCompat="@drawable/ic_add_circle" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -342,7 +393,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_add_circle" />
+                            app:srcCompat="@drawable/ic_add_circle" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -363,6 +414,7 @@
                         android:layout_marginStart="5dp"
                         android:background="@drawable/edittext_highlight_blue"
                         android:hint="Enter Username"
+                        android:importantForAutofill="no"
                         android:padding="5dp"
                         android:textColor="#999"
                         android:textSize="18sp" />

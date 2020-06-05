@@ -2,16 +2,26 @@ package com.example.messmanagement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
-import android.accounts.Account;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,14 +33,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class AdminUser extends AppCompatActivity {
 
     private EditText etFullname,etUser,etPw,etConfirmpw,etUser2,etPw2,etConfirmpw2;
-    private AdminAccount account;
-
+    private AdminAccountClass account;
+    private Animation moveDownAnim, moveUpAnim;
+    private ImageView dropdown;
+    private LinearLayout linear_layout_2,parentLayout;
     private DatabaseReference mDatabase,mD;
     private Drawable editTextBlue,editTextRed;
     private String name,username,password,confirmpw,username2,password2,confirmpw2;
+    private List<TextView> icons = new ArrayList<>();
+    private Typeface font;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +65,75 @@ public class AdminUser extends AppCompatActivity {
         etUser2=findViewById(R.id.username_edit_text2);
         etPw2=findViewById(R.id.password_edit_text2);
         etConfirmpw2=findViewById(R.id.confirmpw_edit_text2);
+        dropdown=findViewById(R.id.dropdown);
         Button btAdd = findViewById(R.id.addUserbtn);
         Button btDelete = findViewById(R.id.btnDelete);
+
+        parentLayout=findViewById(R.id.parent_layout);
+        linear_layout_2=findViewById(R.id.linear_layout_2);
+        moveDownAnim = AnimationUtils.loadAnimation(this, R.anim.move_down);
+        moveUpAnim = AnimationUtils.loadAnimation(this, R.anim.move_up);
+
+        dropdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (linear_layout_2.getVisibility() == View.GONE) {
+                    linear_layout_2.setVisibility(View.VISIBLE);
+                    linear_layout_2.startAnimation(moveDownAnim);
+                } else {
+                   linear_layout_2.startAnimation(moveUpAnim);
+                   linear_layout_2.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        font = Typeface.createFromAsset(getAssets(), "solid.otf");
+        for (View view: getViewsByTag(parentLayout, "icon")) {
+            if (view instanceof TextView) {
+                ((TextView) view).setTypeface(font);
+            }
+        }
+
+        RelativeLayout rlHome = findViewById(R.id.relative_home);
+        rlHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminUser.this,AdminHome.class));
+            }
+        });
+
+        RelativeLayout rlAddUser = findViewById(R.id.relative_add_user);
+        rlAddUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminUser.this,AdminUser.class));
+            }
+        });
+
+        RelativeLayout rlAddMenu = findViewById(R.id.relative_menu);
+        rlAddMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminUser.this,AddMenu.class));
+            }
+        });
+
+        RelativeLayout rlFeedback = findViewById(R.id.relative_feedback);
+        rlFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminUser.this,ManageFeedback.class));
+            }
+        });
+
+        RelativeLayout rlLogout = findViewById(R.id.relative_logout);
+        rlLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminUser.this,Start.class));
+            }
+        });
+
 
         editTextBlue = ContextCompat.getDrawable(this, R.drawable.edittext_highlight_blue);
         editTextRed = ContextCompat.getDrawable(this, R.drawable.edittext_highlight_red);
@@ -68,6 +153,7 @@ public class AdminUser extends AppCompatActivity {
         });
 
     }
+
 
     private void checkAccount() {
         if(validateAdd()) {
@@ -92,9 +178,9 @@ public class AdminUser extends AppCompatActivity {
     private boolean checkIfUsernameExists(String username,DataSnapshot dataSnapshot){
         Log.d("TAG","checkIfUsernameExists: checking if "+username+" already exists!");
 
-        account =new AdminAccount();
+        account =new AdminAccountClass();
         for(DataSnapshot ds:dataSnapshot.getChildren()){
-            account.setUsername(ds.getValue(AdminAccount.class).getUsername());
+            account.setUsername(ds.getValue(AdminAccountClass.class).getUsername());
 
             if(account.getUsername().equals(username)){
                 Log.d("TAG","checkIfUsernameExists: FOUND A MATCH "+account.getUsername());
@@ -107,7 +193,7 @@ public class AdminUser extends AppCompatActivity {
     private void addAccount() {
         if(validateAdd()) {
             String id = mDatabase.push().getKey();
-            account = new AdminAccount(
+            account = new AdminAccountClass(
                     id,
                     name,
                     username
@@ -177,11 +263,11 @@ public class AdminUser extends AppCompatActivity {
     private boolean checkIfUsernameExistsDelete(String username2,String password2,DataSnapshot dataSnapshot){
         Log.d("TAG","checkIfUsernameExists: checking if "+username2+" already exists!");
 
-        account =new AdminAccount();
+        account =new AdminAccountClass();
 
         for(DataSnapshot ds:dataSnapshot.getChildren()){
-            account.setUsername(ds.getValue(AdminAccount.class).getUsername());
-            account.setPassword(ds.getValue(AdminAccount.class).getPassword());
+            account.setUsername(ds.getValue(AdminAccountClass.class).getUsername());
+            account.setPassword(ds.getValue(AdminAccountClass.class).getPassword());
 
             if(account.getUsername().equals(username2) && account.getPassword().equals(password2)){
                 Log.d("TAG","checkIfUsernameExists: FOUND A MATCH "+account.getUsername()+" "+account.getPassword());
@@ -283,4 +369,23 @@ public class AdminUser extends AppCompatActivity {
         etPw2.getText().clear();
         etConfirmpw2.getText().clear();
     }
+
+    private static ArrayList<View> getViewsByTag(ViewGroup root, String tag){
+        ArrayList<View> views = new ArrayList<>();
+        final int childCount = root.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            final View child = root.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                views.addAll(getViewsByTag((ViewGroup) child, tag));
+            }
+
+            final Object tagObj = child.getTag();
+            if (tagObj != null && tagObj.equals(tag)) {
+                views.add(child);
+            }
+
+        }
+        return views;
+    }
+
 }

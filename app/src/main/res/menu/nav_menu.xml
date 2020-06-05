@@ -31,10 +31,6 @@
             android:title="DELETE YOUR ACCOUNT"
             />
 
-        <item android:id="@+id/mAdmin"
-            android:title="ADMIN"
-            />
-
     </group>
 
 </menu>

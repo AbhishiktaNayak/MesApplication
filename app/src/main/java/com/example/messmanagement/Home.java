@@ -1,12 +1,5 @@
 package com.example.messmanagement;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,7 +8,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -25,10 +17,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,20 +39,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 public class Home extends AppCompatActivity {
 
     private Toolbar toolbar;
     private View nav_header;
-    private LinearLayout layout1,layout2;
     private NavigationView navigationView;
-    private TextView tvEmail,tvRollNo,tvHostel,clickHere;
     private ImageView menu_icon;
-    private ProgressBar progressBar;
+    private TextView tvEmail,tvRollNo,tvHostel,breakfast_text,lunch_text,dinner_text,snacks_text;
     private DrawerLayout drawerLayout;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-    private DatabaseReference rootRef,ref;
-    private String selectedHostel;
+    private DatabaseReference rootRef,ref,mDatabase;
+    private String selectedHostel,hostel,day,roll,breakfast,lunch,snacks,dinner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +62,8 @@ public class Home extends AppCompatActivity {
 
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser=firebaseAuth.getCurrentUser();
-        rootRef=FirebaseDatabase.getInstance().getReference();
-        ref=rootRef.child("Students").child(firebaseUser.getUid());
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        ref= rootRef.child("Students").child(firebaseUser.getUid());
 
 
         navigationView=findViewById(R.id.navigation);
@@ -76,7 +75,10 @@ public class Home extends AppCompatActivity {
         tvRollNo=nav_header.findViewById(R.id.tvRollNo);
         tvEmail=nav_header.findViewById(R.id.tvEmail);
         tvHostel=nav_header.findViewById(R.id.tvHostel);
-        tvEmail.setText(firebaseUser.getEmail());
+        breakfast_text=findViewById(R.id.breakfast_text);
+        lunch_text=findViewById(R.id.lunch_text);
+        snacks_text=findViewById(R.id.snacks_text);
+        dinner_text=findViewById(R.id.dinner_text);
 
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -98,13 +100,63 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        if(firebaseUser==null)
+        Calendar calendar= Calendar.getInstance();
+        int dayno = calendar.get(Calendar.DAY_OF_WEEK);
+        switch (dayno)
         {
-            Intent i = new Intent(Home.this, MainActivity.class);
-            finish();
-            startActivity(i);
+            case 1: day="SUNDAY"; break;
+            case 2: day="MONDAY"; break;
+            case 3: day="TUESDAY"; break;
+            case 4: day="WEDNESDAY"; break;
+            case 5: day="THURSDAY"; break;
+            case 6: day="FRIDAY"; break;
+            case 7: day="SATURDAY"; break;
         }
 
+        tvEmail.setText(firebaseUser.getEmail());
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                roll=dataSnapshot.child("sroll").getValue(String.class);
+                hostel=dataSnapshot.child("shostel").getValue(String.class);
+                tvRollNo.setText(roll);
+                tvHostel.setText(hostel);
+                itemDisplay(hostel);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Home.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+
+    private void itemDisplay(String hostel) {
+        mDatabase=FirebaseDatabase.getInstance().getReference("Menu").child(hostel).child(day);
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                breakfast=dataSnapshot.child("breakfast").getValue(String.class);
+                lunch=dataSnapshot.child("lunch").getValue(String.class);
+                snacks=dataSnapshot.child("snacks").getValue(String.class);
+                dinner=dataSnapshot.child("dinner").getValue(String.class);
+
+                breakfast_text.setText(breakfast);
+                lunch_text.setText(lunch);
+                snacks_text.setText(snacks);
+                dinner_text.setText(dinner);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void configurenavigation() {
@@ -123,11 +175,11 @@ public class Home extends AppCompatActivity {
                     popupwindow();
                 }
                 else if (item == (R.id.mMenu)) {
-                    startActivity(new Intent(Home.this, Empty.class));
+                    startActivity(new Intent(Home.this, DisplayMenu.class));
                     drawerLayout.closeDrawers();
                 }
                 else if (item == (R.id.mNotify)) {
-                    startActivity(new Intent(Home.this, Empty.class));
+                    startActivity(new Intent(Home.this, BasicActivity.class));
                     drawerLayout.closeDrawers();
                 }
                 else if (item == (R.id.mFeedback)) {
@@ -136,15 +188,11 @@ public class Home extends AppCompatActivity {
                 }
                 else if (item == (R.id.mLogout)) {
                     FirebaseAuth.getInstance().signOut();
-                    Intent intent = new Intent(Home.this,MainActivity.class);
+                    Intent intent = new Intent(Home.this, Start.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finishAffinity();
-                }
-                else if (item == (R.id.mAdmin)) {
-                    startActivity(new Intent(Home.this, AdminHome.class));
-                    drawerLayout.closeDrawers();
                 }
                 else if (item==(R.id.mDeleteAccount))
                 {
@@ -154,14 +202,14 @@ public class Home extends AppCompatActivity {
                     dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            progressBar.setVisibility(View.VISIBLE);
+                            ref.removeValue();
                             firebaseUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    progressBar.setVisibility(View.GONE);
+
                                     if (task.isSuccessful()){
                                         Toast.makeText(Home.this, "Account Successfully Deleted.", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(Home.this,MainActivity.class);
+                                        Intent intent = new Intent(Home.this, Login.class);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -182,22 +230,6 @@ public class Home extends AppCompatActivity {
                     alertDialog.show();
                 }
                 return false;
-            }
-        });
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                String roll=dataSnapshot.child("sroll").getValue(String.class).toString();
-                String hostel=dataSnapshot.child("shostel").getValue(String.class);
-                tvRollNo.setText(roll);
-                tvHostel.setText(hostel);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Home.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -224,15 +256,7 @@ public class Home extends AppCompatActivity {
                 wm.updateViewLayout(container, p);
             }
         }
-        setSpinner(layout);
-
-        Button btCancel = layout.findViewById(R.id.btCancel);
-        btCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                window.dismiss();
-            }
-        });
+        chooseMess(layout,window);
 
         TextView tvClose = layout.findViewById(R.id.tvClose);
         tvClose.setOnClickListener(new View.OnClickListener() {
@@ -245,7 +269,7 @@ public class Home extends AppCompatActivity {
         drawerLayout.closeDrawers();
     }
 
-    private void setSpinner(View layout) {
+    private void chooseMess(View layout, final PopupWindow window) {
         final Spinner hostelSpinner=layout.findViewById(R.id.hostelSpinner);
 
         ArrayAdapter<String> adapter=new ArrayAdapter<>(Home.this, R.layout.support_simple_spinner_dropdown_item,
@@ -272,13 +296,16 @@ public class Home extends AppCompatActivity {
                     Toast.makeText(Home.this, "Please select hostel", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    ref.child("shostel").setValue(selectedHostel);
-                    Toast.makeText(Home.this, "Submitted!", Toast.LENGTH_SHORT).show();
+                    updateHome();
+                    window.dismiss();
                 }
-
             }
         });
     }
 
+    private void updateHome() {
+        mDatabase=FirebaseDatabase.getInstance().getReference("Menu").child(selectedHostel).child(day);
+        itemDisplay(selectedHostel);
+    }
 
 }

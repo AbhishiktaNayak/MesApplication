@@ -29,7 +29,7 @@
                 android:layout_height="32dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="5dp"
-                android:src="@drawable/dark_logo"/>
+                app:srcCompat="@drawable/dark_logo"/>
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -50,11 +50,12 @@
             android:id="@+id/admin_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="start"
             android:clickable="true"
             android:fontFamily="@font/montserrat"
             android:longClickable="false"
             android:textColor="#FFFFFF"
+            android:text=""
             android:textSize="14sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="0dp"

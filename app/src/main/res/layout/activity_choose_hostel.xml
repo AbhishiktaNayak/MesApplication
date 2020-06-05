@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             android:padding="5dp"
+            android:background="@drawable/default_edittext_border"
             android:entries="@array/hostel_list"
             android:textSize="20sp"/>
     </LinearLayout>
@@ -71,18 +72,6 @@
             android:backgroundTint="@color/blue_button"
             android:fontFamily="@font/open_sans"
             android:text="SUBMIT"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/btCancel"
-            style="?android:attr/buttonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue_button"
-            android:fontFamily="@font/open_sans"
-            android:text="CLOSE"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="20sp" />

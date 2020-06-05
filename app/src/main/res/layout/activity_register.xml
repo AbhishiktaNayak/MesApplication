@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context=".Register">
+    android:orientation="vertical"
+    tools:context=".Registration">
 
     <ScrollView
         android:id="@+id/scroll_view"
@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@color/white"
             android:layout_margin="20dp"
+            android:background="@color/white"
             android:padding="10dp">
 
             <LinearLayout
@@ -36,6 +36,7 @@
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/default_edittext_border"
                     android:hint="Enter Name"
+                    android:importantForAutofill="no"
                     android:padding="5dp" />
 
 
@@ -48,10 +49,23 @@
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/default_edittext_border"
                     android:hint="Enter Roll"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
                     android:padding="5dp" />
 
+                <Spinner
+                    android:id="@+id/shostel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/default_edittext_border"
+                    android:entries="@array/hostel_list"
+                    android:textSize="20sp" />
+
                 <EditText
-                    android:id="@+id/sEmail"
+                    android:id="@+id/semail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -59,6 +73,7 @@
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/default_edittext_border"
                     android:hint="Enter Email id"
+                    android:importantForAutofill="no"
                     android:padding="5dp" />
 
                 <EditText
@@ -70,6 +85,7 @@
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/default_edittext_border"
                     android:hint="Enter Password"
+                    android:importantForAutofill="no"
                     android:padding="5dp" />
 
                 <EditText
@@ -81,16 +97,17 @@
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/default_edittext_border"
                     android:hint="Confirm password"
+                    android:importantForAutofill="no"
                     android:padding="5dp" />
 
                 <Button
                     android:id="@+id/btRegister"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="25dp"
                     android:background="@color/blue_button"
-                    android:layout_gravity="center_horizontal"
                     android:text="Register"
                     android:textColor="#FFFFFF" />
 

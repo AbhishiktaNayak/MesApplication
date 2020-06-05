@@ -14,4 +14,6 @@
     <color name="cardBackgroud_color">#fafafa</color>
     <color name="edittext_blue">#90CAF9</color>
     <color name="edittext_red">#D32F2F</color>
+    <color name="light_yellow">#fff59d</color>
+    <color name="fab_pressed">#546e7a</color>
 </resources>

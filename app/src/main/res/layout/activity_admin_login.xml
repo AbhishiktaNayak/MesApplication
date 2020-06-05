@@ -32,16 +32,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_margin="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:layout_gravity="center_horizontal"
-                    android:text="ADMIN LOGIN"
-                    android:textStyle="bold"
+                    android:text="WELCOME!"
                     android:textColor="#000000"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/aEmail"
+                    android:id="@+id/aUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -49,8 +49,9 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/edittext_highlight_blue"
-                    android:hint="Enter email"
-                    android:padding="5dp" />
+                    android:hint="Enter username"
+                    android:padding="5dp"
+                    android:importantForAutofill="no" />
 
 
                 <EditText
@@ -62,7 +63,9 @@
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/edittext_highlight_blue"
                     android:hint="Enter password"
-                    android:padding="5dp" />
+                    android:padding="5dp"
+                    android:importantForAutofill="no"
+                    android:inputType="textVisiblePassword" />
 
                 <Button
                     android:id="@+id/btnLogin"

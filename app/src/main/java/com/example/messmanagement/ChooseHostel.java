@@ -1,11 +1,10 @@
 package com.example.messmanagement;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-public class ChooseHostel extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
 
+public class ChooseHostel extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

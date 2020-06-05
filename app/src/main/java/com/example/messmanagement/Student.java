@@ -1,19 +1,15 @@
 package com.example.messmanagement;
 
 public class Student {
-    public String sname,sroll,semail,shostel;
+    public String sname,sroll,shostel,semail;
 
     public Student(){
 
     }
 
-    public String getShostel() {
-        return shostel;
-    }
+    public String getShostel() { return shostel; }
 
-    public void setShostel(String shostel) {
-        this.shostel = shostel;
-    }
+    public void setShostel(String shostel) { this.shostel = shostel; }
 
     public String getSname() {
         return sname;
@@ -39,9 +35,10 @@ public class Student {
         this.semail = semail;
     }
 
-    public Student(String sname, String sroll, String semail) {
+    public Student(String sname, String sroll, String shostel, String semail) {
         this.sname = sname;
         this.semail = semail;
         this.sroll = sroll;
+        this.shostel = shostel;
     }
 }

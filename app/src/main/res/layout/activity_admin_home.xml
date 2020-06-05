@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -24,15 +25,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:visibility="visible"
                 app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
                 app:cardPreventCornerOverlap="false">
 
                 <LinearLayout
-                    android:id="@+id/linear_layout_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -42,7 +43,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorPrimaryDark"
-                        android:gravity="center_vertical"
                         android:clickable="true"
                         android:orientation="horizontal"
                         android:paddingStart="10dp"
@@ -54,7 +54,8 @@
                             android:id="@+id/ic_home"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_home"
+                            app:srcCompat="@drawable/ic_home"
+                            android:layout_centerVertical="true"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -70,7 +71,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_expand_more"
+                            app:srcCompat="@drawable/ic_expand_more"
                             android:textColor="@color/white"
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
@@ -81,19 +82,19 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/gray_bottom"
                         android:clickable="true"
-                        android:gravity="center_vertical"
+                        android:focusable="true"
                         android:orientation="horizontal"
                         android:paddingStart="10dp"
                         android:paddingTop="10dp"
                         android:paddingEnd="10dp"
-                        android:paddingBottom="10dp"
-                        android:focusable="true">
+                        android:paddingBottom="10dp">
                         <TextView
                             android:id="@+id/addUser"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:tag="icon"
-                            android:text="@string/enter_icon"
+                            android:text="@string/admin"
                             android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
 
@@ -122,7 +123,6 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/gray_bottom"
                         android:clickable="true"
-                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingStart="10dp"
                         android:paddingTop="10dp"
@@ -133,8 +133,9 @@
                             android:id="@+id/ivStudent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:tag="icon"
-                            android:text="@string/enter_icon"
+                            android:text="@string/feedback"
                             android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
 
@@ -158,12 +159,53 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/search"
+                        android:id="@+id/relative_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/gray_bottom"
+                        android:clickable="true"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
+                        android:focusable="true">
+                        <TextView
+                            android:id="@+id/ivMenu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tag="icon"
+                            android:layout_centerVertical="true"
+                            android:text="@string/menu"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_toEndOf="@id/ivMenu"
+                            android:fontFamily="@font/montserrat"
+                            android:text="Manage Menus"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tag="icon"
+                            android:text="@string/enter_icon"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_alignParentEnd="true"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relative_logout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorPrimaryDark"
                         android:clickable="true"
-                        android:gravity="center_vertical"
+                        android:focusable="true"
                         android:orientation="horizontal"
                         android:paddingStart="10dp"
                         android:paddingTop="12dp"
@@ -173,8 +215,9 @@
                             android:id="@+id/ic_search"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:tag="icon"
-                            android:text="@string/enter_icon"
+                            android:text="@string/logouticon"
                             android:textColor="@color/white"
                             android:textSize="14sp"/>
 
@@ -184,13 +227,14 @@
                             android:layout_marginStart="8dp"
                             android:layout_toEndOf="@id/ic_search"
                             android:fontFamily="@font/montserrat"
-                            android:text="Advanced Search"
+                            android:text="Logout"
+                            android:textStyle="bold"
                             android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            android:textSize="16sp" />
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_forward"
+                            app:srcCompat="@drawable/ic_arrow_forward"
                             android:textColor="@color/white"
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
