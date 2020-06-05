@@ -22,7 +22,7 @@ public class Start extends AppCompatActivity {
         btAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Start.this,AdminHome.class));
+                startActivity(new Intent(Start.this,AdminLogin.class));
                 finishAffinity();
             }
         });

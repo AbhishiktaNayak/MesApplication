@@ -35,7 +35,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:text="WELCOME!"
+                    android:text="ADMIN LOGIN"
                     android:textColor="#000000"
                     android:textSize="24sp"
                     android:textStyle="bold" />
