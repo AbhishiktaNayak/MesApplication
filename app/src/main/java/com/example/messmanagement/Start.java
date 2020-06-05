@@ -30,7 +30,7 @@ public class Start extends AppCompatActivity {
         btStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Start.this,Home.class));
+                startActivity(new Intent(Start.this,Login.class));
                 finishAffinity();
             }
         });

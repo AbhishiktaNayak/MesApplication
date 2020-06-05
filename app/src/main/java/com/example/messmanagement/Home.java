@@ -62,9 +62,9 @@ public class Home extends AppCompatActivity {
 
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser=firebaseAuth.getCurrentUser();
+
         rootRef = FirebaseDatabase.getInstance().getReference();
         ref= rootRef.child("Students").child(firebaseUser.getUid());
-
 
         navigationView=findViewById(R.id.navigation);
         toolbar = findViewById(R.id.toolbar);
